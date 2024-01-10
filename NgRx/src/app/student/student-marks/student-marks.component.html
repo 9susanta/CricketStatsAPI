@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-6">
+    <h3>Student List</h3>
+    <div>
+      <a
+        href="#"
+        class="btn btn-primary"
+        [routerLink]="['/students/add-student']"
+        >Add Students</a
+      >
+    </div>
+    <table
+      class="table table-striped"
+      *ngIf="students$ | async as studentsData"
+    >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Marks</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of studentsData">
+          <td>{{ student.name }}</td>
+          <td>{{ student.mark }}</td>
+          <td>
+            <a
+              href=""
+              class="btn btn-success"
+              [routerLink]="['edit-student', student.id]"
+              >Update
+            </a>
+            <button class="btn btn-danger" (click)="onDelete(student.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <router-outlet></router-outlet>
+  </div>
+</div>

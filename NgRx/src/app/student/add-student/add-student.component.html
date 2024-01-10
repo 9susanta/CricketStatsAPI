@@ -1,0 +1,40 @@
+<div class="row my-4">
+  <div class="col-md-12">
+    <h3>Add Student</h3>
+    <hr />
+    <form [formGroup]="studentForm" (ngSubmit)="onAddStudent()">
+      <div class="mb-3">
+        <label>Name</label>
+        <input type="text" class="form-control" formControlName="name" />
+        <div *ngIf="studentForm.get('name')?.touched">
+          <div *ngIf="studentForm.get('name')?.errors">Name is required</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Mark</label>
+        <input
+          type="number"
+          name="mark"
+          formControlName="mark"
+          class="form-control"
+          value="0"
+          min="0"
+          max="99"
+        />
+        <div *ngIf="studentForm.get('mark')?.touched">
+          <div *ngIf="studentForm.get('mark')?.errors">Mark is required</div>
+        </div>
+      </div>
+
+      <div class="my-3">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!studentForm.valid"
+        >
+          Add Student
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
