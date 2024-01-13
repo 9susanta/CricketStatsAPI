@@ -6,4 +6,8 @@ export class User {
     private refreshToken: string,
     private expirationDate: Date
   ) {}
+  get getExpirationDate()
+  {
+    return this.expirationDate;
+  }
 }

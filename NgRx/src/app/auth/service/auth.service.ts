@@ -28,6 +28,9 @@ export class AuthService {
       }
     );
   }
+
+
+
   getDecodeToken(token, refreshToken) {
     var userdetails = JSON.parse(atob(token.split('.')[1]));
     let { email = '', role = '', exp = 0 } = { ...userdetails };
@@ -35,16 +38,36 @@ export class AuthService {
     return user;
   }
 
-  getErrorMessage(message: string) {
-    switch (message) {
-      case 'EMAIL_NOT_FOUND':
-        return 'Email Not Found';
-      case 'INVALID_PASSWORD':
-        return 'Invalid Password';
-      case 'EMAIL_EXISTS':
-        return 'Email already exists';
-      default:
-        return 'Unknown error occurred. Please try again';
+  setUserInLocalStorage(user: User) {
+    localStorage.setItem('userData', JSON.stringify(user));
+    this.runTimeoutInterval(user);
+  }
+  timeoutInterval: any;
+  runTimeoutInterval(user: User) {
+    const todaysDate = new Date().getTime();
+    const expirationDate = user.getExpirationDate.getTime();
+    const timeInterval = expirationDate - todaysDate;
+
+    this.timeoutInterval = setTimeout(() => {
+      //logout functionality or get the refresh token
+    }, timeInterval);
+  }
+
+  getUserFromLocalStorage() {
+    const userDataString = localStorage.getItem('userData');
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      const expirationDate = new Date(userData.expirationDate);
+      const user = new User(
+        userData.email,
+        userData.role,
+        userData.token,
+        userData.refreshToken,
+        expirationDate
+      );
+      this.runTimeoutInterval(user);
+      return user;
     }
+    return null;
   }
 }

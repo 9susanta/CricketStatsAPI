@@ -28,8 +28,16 @@ namespace CricketStatsAPI.Repository
         }
         public async Task<bool> LoginUser(AppUser user)
         {
-            return await _statusContext.AppUsers.Where(u =>
+            try
+            {
+                return await _statusContext.AppUsers.Where(u =>
            (u.Email == user.Email) && (u.Password == user.Password)).AnyAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
 
         }
         public async Task<bool> UpdateRefreshToken(AppUser user)
