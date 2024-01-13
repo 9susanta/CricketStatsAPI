@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  autoLogin,
   login,
   loginSuccess,
   signupStart,
   signupSuccess,
 } from './auth.actions';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import {
   setErrorMessage,
@@ -35,13 +36,12 @@ export class AuthEffect {
               data.token,
               data.refreshToken
             );
+            this.authService.setUserInLocalStorage(user);
             return loginSuccess({ user });
           }),
           catchError((errResp) => {
             this.store.dispatch(setLoadingSpinner({ status: false }));
-            const errorMessage = this.authService.getErrorMessage(
-              errResp.error.error.message
-            );
+            const errorMessage = errResp.error.error.message
             return of(setErrorMessage({ message: errorMessage }));
           })
         );
@@ -53,6 +53,7 @@ export class AuthEffect {
       return this.actions$.pipe(
         ofType(...[loginSuccess, signupSuccess]),
         tap((action) => {
+          debugger;
           this.store.dispatch(setErrorMessage({ message: '' }));
           this.router.navigate(['/']);
         })
@@ -72,17 +73,28 @@ export class AuthEffect {
               data.token,
               data.refreshToken
             );
+            this.authService.setUserInLocalStorage(user);
             return loginSuccess({ user });
           }),
           catchError((errResp) => {
             this.store.dispatch(setLoadingSpinner({ status: false }));
-            const errorMessage = this.authService.getErrorMessage(
-              errResp.error.error.message
-            );
+            const errorMessage = errResp.error.error.message;
             return of(setErrorMessage({ message: errorMessage }));
           })
         );
       })
     );
   });
+  autoLogin$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(autoLogin),
+        mergeMap((action) => {
+          debugger;
+          const user = this.authService.getUserFromLocalStorage();
+          return of(loginSuccess({ user }));
+        })
+      );
+    }
+  );
 }
