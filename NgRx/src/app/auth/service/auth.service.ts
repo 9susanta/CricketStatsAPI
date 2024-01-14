@@ -29,8 +29,6 @@ export class AuthService {
     );
   }
 
-
-
   getDecodeToken(token, refreshToken) {
     var userdetails = JSON.parse(atob(token.split('.')[1]));
     let { email = '', role = '', exp = 0 } = { ...userdetails };

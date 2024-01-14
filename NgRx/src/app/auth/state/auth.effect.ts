@@ -53,7 +53,6 @@ export class AuthEffect {
       return this.actions$.pipe(
         ofType(...[loginSuccess, signupSuccess]),
         tap((action) => {
-          debugger;
           this.store.dispatch(setErrorMessage({ message: '' }));
           this.router.navigate(['/']);
         })
@@ -90,7 +89,6 @@ export class AuthEffect {
       return this.actions$.pipe(
         ofType(autoLogin),
         mergeMap((action) => {
-          debugger;
           const user = this.authService.getUserFromLocalStorage();
           return of(loginSuccess({ user }));
         })
