@@ -36,7 +36,6 @@ export class AuthEffect {
               data.token,
               data.refreshToken
             );
-            this.authService.setUserInLocalStorage(user);
             return loginSuccess({ user });
           }),
           catchError((errResp) => {
@@ -53,6 +52,8 @@ export class AuthEffect {
       return this.actions$.pipe(
         ofType(...[loginSuccess, signupSuccess]),
         tap((action) => {
+          
+          this.authService.setUserInLocalStorage(action.user);
           this.store.dispatch(setErrorMessage({ message: '' }));
           this.router.navigate(['/']);
         })
@@ -72,7 +73,6 @@ export class AuthEffect {
               data.token,
               data.refreshToken
             );
-            this.authService.setUserInLocalStorage(user);
             return signupSuccess({ user });
           }),
           catchError((errResp) => {
