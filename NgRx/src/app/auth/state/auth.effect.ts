@@ -73,7 +73,7 @@ export class AuthEffect {
               data.refreshToken
             );
             this.authService.setUserInLocalStorage(user);
-            return loginSuccess({ user });
+            return signupSuccess({ user });
           }),
           catchError((errResp) => {
             this.store.dispatch(setLoadingSpinner({ status: false }));
