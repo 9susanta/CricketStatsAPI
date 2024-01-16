@@ -13,7 +13,7 @@ export const login = createAction(
 );
 export const loginSuccess = createAction(
   LOGIN_SUCCESS,
-  props<{ user: User }>()
+  props<{ user: User,isRedirect: boolean }>()
 );
 
 export const SIGNUP = '[auth page] signup start';
@@ -26,7 +26,7 @@ export const signupStart = createAction(
 
 export const signupSuccess = createAction(
   SIGNUP_SUCCESS,
-  props<{ user: User }>()
+  props<{ user: User,isRedirect: boolean }>()
 );
 
 export const autoLogin = createAction(AUTO_LOGIN_ACTION);
