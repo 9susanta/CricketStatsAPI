@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { UserResponseModel } from 'src/app/models/user-response.model';
 import { User } from 'src/app/models/user.model';
+import { AppState } from 'src/app/store/app.state';
+import { logout } from '../state/auth.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   apiBaseUrl: string = 'https://localhost:7187/api/';
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,private store: Store<AppState>) {}
 
   login(email: string, password: string) {
     return this.httpClient.post<UserResponseModel>(
@@ -47,6 +50,7 @@ export class AuthService {
     const timeInterval = expirationDate - todaysDate;
 
     this.timeoutInterval = setTimeout(() => {
+      this.store.dispatch(logout());
       //logout functionality or get the refresh token
     }, timeInterval);
   }
