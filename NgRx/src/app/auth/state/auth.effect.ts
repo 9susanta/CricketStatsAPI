@@ -4,6 +4,7 @@ import {
   autoLogin,
   login,
   loginSuccess,
+  logout,
   signupStart,
   signupSuccess,
 } from './auth.actions';
@@ -94,5 +95,17 @@ export class AuthEffect {
         })
       );
     }
+  );
+  logout$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(logout),
+        map((action) => {
+          this.authService.logout();
+          this.router.navigate(['auth']);
+        })
+      );
+    },
+    { dispatch: false }
   );
 }

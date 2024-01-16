@@ -68,4 +68,11 @@ export class AuthService {
     }
     return null;
   }
+  logout() {
+    localStorage.removeItem('userData');
+    if (this.timeoutInterval) {
+      clearTimeout(this.timeoutInterval);
+      this.timeoutInterval = null;
+    }
+  }
 }
