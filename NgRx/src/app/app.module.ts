@@ -9,9 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { appReducer } from './store/app.state';
 import { EffectsModule } from '@ngrx/effects';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/component/loading-spinner/loading-spinner.component';
 import { AuthEffect } from './auth/state/auth.effect';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { AuthEffect } from './auth/state/auth.effect';
     StoreModule.forRoot(appReducer),
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

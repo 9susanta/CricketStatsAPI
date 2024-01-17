@@ -4,6 +4,7 @@ import {
   autoLogin,
   login,
   loginSuccess,
+  logout,
   signupStart,
   signupSuccess,
 } from './auth.actions';
@@ -36,7 +37,7 @@ export class AuthEffect {
               data.token,
               data.refreshToken
             );
-            return loginSuccess({ user });
+            return loginSuccess({ user,isRedirect: true });
           }),
           catchError((errResp) => {
             this.store.dispatch(setLoadingSpinner({ status: false }));
@@ -55,7 +56,9 @@ export class AuthEffect {
           
           this.authService.setUserInLocalStorage(action.user);
           this.store.dispatch(setErrorMessage({ message: '' }));
-          this.router.navigate(['/']);
+          if (action.isRedirect) {
+            this.router.navigate(['/']);
+          }
         })
       );
     },
@@ -73,7 +76,7 @@ export class AuthEffect {
               data.token,
               data.refreshToken
             );
-            return signupSuccess({ user });
+            return signupSuccess({ user,isRedirect: true });
           }),
           catchError((errResp) => {
             this.store.dispatch(setLoadingSpinner({ status: false }));
@@ -90,9 +93,21 @@ export class AuthEffect {
         ofType(autoLogin),
         mergeMap((action) => {
           const user = this.authService.getUserFromLocalStorage();
-          return of(loginSuccess({ user }));
+          return of(loginSuccess({ user,isRedirect: false }));
         })
       );
     }
+  );
+  logout$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(logout),
+        map((action) => {
+          this.authService.logout();
+          this.router.navigate(['auth']);
+        })
+      );
+    },
+    { dispatch: false }
   );
 }
