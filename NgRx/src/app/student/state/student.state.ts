@@ -5,8 +5,5 @@ export interface StudentState {
 }
 
 export const initialState: StudentState = {
-  students: [
-    { id: 1, name: 'Susanta', mark: 60 },
-    { id: 2, name: 'Ramesh', mark: 50 },
-  ],
+  students: [],
 };

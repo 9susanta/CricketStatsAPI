@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { StudentState, initialState } from './student.state';
-import { addStudent, deleteStudent, updateStudent } from './student.action';
+import { addStudent, deleteStudent, loadStudentsSuccess, updateStudent } from './student.action';
 
 const _studentsReducer = createReducer(
   initialState,
@@ -29,6 +29,12 @@ const _studentsReducer = createReducer(
     return {
       ...state,
       students: updatedStudent,
+    };
+  }),
+  on(loadStudentsSuccess, (state, action) => {
+    return {
+      ...state,
+      students: action.students,
     };
   })
 );

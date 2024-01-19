@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { getStudent } from '../state/student.selector';
-import { deleteStudent } from '../state/student.action';
+import { deleteStudent, loadStudents } from '../state/student.action';
 
 @Component({
   selector: 'app-student-marks',
@@ -17,5 +17,7 @@ export class StudentMarksComponent {
       this.store.dispatch(deleteStudent({ id }));
     }
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.dispatch(loadStudents());
+  }
 }

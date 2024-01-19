@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { STUDENT_STATE_NAME } from './state/student.selector';
 import { studentsReducer } from './state/student.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { StudentEffects } from './state/student.effects';
 
 const routes: Routes = [
   {
@@ -30,6 +32,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature(STUDENT_STATE_NAME, studentsReducer),
+    EffectsModule.forFeature([StudentEffects]),
   ],
 })
 export class StudentModule {}
