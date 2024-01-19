@@ -7,5 +7,6 @@ namespace CricketStatsAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
+        public StudentController() { }
     }
 }
