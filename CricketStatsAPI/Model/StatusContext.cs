@@ -9,5 +9,6 @@ namespace CricketStatsAPI.Model
         {
         }
         public DbSet<AppUser>? AppUsers { get; set; }
+        public DbSet<Student> Students { get; set; }
     }
 }

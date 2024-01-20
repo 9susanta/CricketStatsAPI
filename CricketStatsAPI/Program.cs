@@ -62,6 +62,7 @@ builder.Services.AddDbContext<StatusContext>(opts => opts.UseSqlServer(connectio
 
 builder.Services.AddScoped<TeamRepository>();
 builder.Services.AddScoped<UsersRepository>();
+builder.Services.AddScoped<StudentRepository>();
 
 builder.Services.AddMemoryCache();
 
