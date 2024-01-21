@@ -11,12 +11,12 @@ namespace CricketStatsAPI.Repository
         {
             _statusContext = statusContext;
         }
-        public async Task<bool> AddNewStudent(string name, int mark)
+        public async Task<int> AddNewStudent(string name, int mark)
         {
             Student student = new Student { Name=name,Mark=mark};
-
-            _statusContext.Add<Student>(student);
-            return (await _statusContext.SaveChangesAsync())>0?true:false;
+            _statusContext.Students.Add(student);
+            await _statusContext.SaveChangesAsync();
+            return student.Id;
             
         }
         public async Task<List<Student>> GetAllStudents()

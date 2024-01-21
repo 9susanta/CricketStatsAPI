@@ -1,12 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { StudentState, initialState } from './student.state';
-import { addStudent, deleteStudent, loadStudentsSuccess, updateStudent } from './student.action';
+import { addStudent, addStudentSuccess, deleteStudent, loadStudentsSuccess, updateStudent } from './student.action';
 
 const _studentsReducer = createReducer(
   initialState,
-  on(addStudent, (state, action) => {
+  on(addStudentSuccess, (state, action) => {
     let student = { ...action.student };
-    student.id = (state.students.length ?? 0) + 1;
     return {
       ...state,
       students: [...state.students, student],
