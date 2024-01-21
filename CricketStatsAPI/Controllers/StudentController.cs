@@ -21,17 +21,17 @@ namespace CricketStatsAPI.Controllers
         {
             return Ok(await _studentRepository.GetAllStudents());
         }
-        [HttpPost]
+        [HttpPost("PostStudent")]
         public async Task<IActionResult> PostStudent(string name, int mark)
         {
             return Ok(await _studentRepository.AddNewStudent(name,mark));
         }
-        [HttpPatch]
+        [HttpPatch("UpdateStudent")]
         public async Task<IActionResult> UpdateStudent(int id, Student student)
         {
             return Ok(await _studentRepository.UpdateStudent(id,student));
         }
-        [HttpDelete]
+        [HttpDelete("DeleteStudent")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
             return Ok(await _studentRepository.DeleteStudent(id));

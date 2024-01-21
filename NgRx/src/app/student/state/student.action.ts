@@ -29,5 +29,10 @@ export const loadStudentsSuccess = createAction(
   props<{ students: Student[] }>()
 );
 
+export const ADD_STUDENT_SUCCESS = '[students page] add students success';
+export const addStudentSuccess = createAction(
+  ADD_STUDENT_SUCCESS,
+  props<{ student: Student }>()
+);
 
 

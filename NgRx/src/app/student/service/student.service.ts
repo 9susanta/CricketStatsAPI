@@ -22,4 +22,19 @@ export class StudentService {
         })
       );
   }
+  addStudent(student: Student): Observable<{ name: string,mark:number }> {
+    return this.http.post<{ name: string,mark:number }>(this.apiBaseUrl+"Student/PostStudent",
+    student
+    );
+  }
+  updateStudent(student: Student) {
+    return this.http.patch(
+      this.apiBaseUrl+"Student/DeleteStudent/"+student.id,
+      student
+    );
+  }
+
+  deletePost(id: number) {
+    return this.http.delete(this.apiBaseUrl+"Student/DeleteStudent/"+id);
+  }
 }
