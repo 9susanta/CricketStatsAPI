@@ -1,5 +1,6 @@
 ﻿using CricketStatsAPI.Model;
 using CricketStatsAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace CricketStatsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StudentController : ControllerBase
     {
         public StudentRepository _studentRepository;
@@ -14,7 +16,7 @@ namespace CricketStatsAPI.Controllers
         {
             _studentRepository = studentRepository;
         }
-        [HttpGet]
+        [HttpGet("GetStudent")]
         public async Task<IActionResult> GetStudent()
         {
             return Ok(await _studentRepository.GetAllStudents());
