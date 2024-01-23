@@ -37,4 +37,10 @@ export class StudentService {
   deletePost(id: number) {
     return this.http.delete(this.apiBaseUrl+"Student/DeleteStudent/"+id);
   }
+
+  getStudentById(id: string): Observable<Student> {
+    return this.http.get<Student>(
+      this.apiBaseUrl+"Student/GetStudentById/"+id
+    );
+  }
 }

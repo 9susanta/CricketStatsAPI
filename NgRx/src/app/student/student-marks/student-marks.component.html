@@ -34,6 +34,9 @@
             <button class="btn btn-danger" (click)="onDelete(student.id)">
               Delete
             </button>
+            <a href="" class="btn btn-info" [routerLink]="['details-student', student.id]"
+            >Details
+          </a>
           </td>
         </tr>
       </tbody>
