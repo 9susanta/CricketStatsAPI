@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+#Ignore Migrations folder
+Migrations/
+
+/CricketStatsAPI/Migrations/StatusContextModelSnapshot.cs
+/CricketStatsAPI/appsettings.json
