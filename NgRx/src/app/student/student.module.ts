@@ -10,6 +10,7 @@ import { STUDENT_STATE_NAME } from './state/student.selector';
 import { studentsReducer } from './state/student.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StudentEffects } from './state/student.effects';
+import { StudentDetailsComponent } from './student-details/student-details.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
     children: [
       { path: 'add-student', component: AddStudentComponent },
       { path: 'edit-student/:id', component: EditStudentComponent },
+      {path:'details-student/:id',component:StudentDetailsComponent}
     ],
   },
 ];
@@ -26,6 +28,7 @@ const routes: Routes = [
     StudentMarksComponent,
     AddStudentComponent,
     EditStudentComponent,
+    StudentDetailsComponent,
   ],
   imports: [
     CommonModule,

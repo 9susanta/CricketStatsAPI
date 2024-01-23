@@ -23,20 +23,21 @@ export class EditStudentComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id') ?? 0;
-      this.studentSubscription = this.store
-        .select(getStudentById(+id))
-        .subscribe((data) => {
-          this.student = data;
-          this.createForm();
+    this.createForm();
+    this.store.select(getStudentById).subscribe((student) => {
+      if (student) {
+        this.student = student;
+        this.studentForm.patchValue({
+          name: student.name,
+          mark: student.mark,
         });
+      }
     });
   }
   createForm() {
     this.studentForm = new FormGroup({
-      name: new FormControl(this.student.name, [Validators.required]),
-      mark: new FormControl(this.student.mark, [Validators.required]),
+      name: new FormControl(null, [Validators.required]),
+      mark: new FormControl(null, [Validators.required]),
     });
   }
   onUpdate() {
