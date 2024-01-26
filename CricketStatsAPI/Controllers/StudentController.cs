@@ -21,6 +21,11 @@ namespace CricketStatsAPI.Controllers
         {
             return Ok(await _studentRepository.GetAllStudents());
         }
+        [HttpGet("GetStudentById")]
+        public async Task<IActionResult> GetStudentById(int id)
+        {
+            return Ok(await _studentRepository.GetStudentById(id));
+        }
         [HttpPost("PostStudent")]
         public async Task<IActionResult> PostStudent(string name, int mark)
         {

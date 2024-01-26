@@ -1,1 +1,6 @@
-<p>student-details works!</p>
+<div>PostDetails</div>
+<div *ngIf="student | async as studentData">
+  <div>Name: {{ studentData.name }}</div>
+  <div>Mark: {{ studentData.mark }}</div>
+</div>
+<div><a [routerLink]="['/students']">Back to List</a></div>

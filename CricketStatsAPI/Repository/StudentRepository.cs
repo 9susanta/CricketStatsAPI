@@ -25,7 +25,7 @@ namespace CricketStatsAPI.Repository
         }
         public async Task<bool> UpdateStudent(int id,Student student)
         {
-            Student studExist=await GetStudentByIdAsync(id);
+            Student studExist=await GetStudentById(id);
             studExist.Name= student.Name;
             studExist.Mark = student.Mark;
             return (await _statusContext.SaveChangesAsync()) > 0 ? true : false;
@@ -33,12 +33,12 @@ namespace CricketStatsAPI.Repository
         }
         public async Task<bool> DeleteStudent(int id)
         {
-            Student studExist = await GetStudentByIdAsync(id);
+            Student studExist = await GetStudentById(id);
             _statusContext.Students.Remove(studExist);
             return (await _statusContext.SaveChangesAsync()) > 0 ? true : false;
 
         }
-        public async Task<Student> GetStudentByIdAsync(int id)
+        public async Task<Student> GetStudentById(int id)
         {
             return await _statusContext.Students.Where(x => x.Id == id).FirstOrDefaultAsync()??new Student();
         }
