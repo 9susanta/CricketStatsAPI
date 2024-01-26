@@ -56,10 +56,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "StateThree:build:production"
+              "buildTarget": "StateThree:build:production"
             },
             "development": {
-              "browserTarget": "StateThree:build:development"
+              "buildTarget": "StateThree:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -67,7 +67,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "StateThree:build"
+            "buildTarget": "StateThree:build"
           }
         },
         "test": {
