@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { mergeMap, map, of, filter, switchMap } from "rxjs";
-import { addStudent, addStudentSuccess, loadStudents, loadStudentsSuccess } from "./student.action";
+import { addStudent, addStudentSuccess, deleteStudent, loadStudents, loadStudentsSuccess, updateStudent } from "./student.action";
 import { StudentService } from "../service/student.service";
 import { ROUTER_NAVIGATION, RouterNavigatedAction } from "@ngrx/router-store";
+import { Update } from "@ngrx/entity";
+import { Student } from "src/app/models/student.model";
 
 @Injectable()
 export class StudentEffects {
@@ -29,6 +31,38 @@ export class StudentEffects {
           map((data) => {
             const student = { ...action.student, id: +data };
             return addStudentSuccess({ student });
+          })
+        );
+      })
+    );
+  });
+
+  updateStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateStudent),
+      switchMap((action) => {
+        return this.studentService.updateStudent(action.student).pipe(
+          map((data) => {
+            const updatedStudent: Update<Student> = {
+              id: action.student.id,
+              changes: {
+                ...action.student,
+              },
+            };
+            return updateStudentSuccess({ student: updatedStudent });
+          })
+        );
+      })
+    );
+  });
+
+  deleteStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteStudent),
+      switchMap((action) => {
+        return this.studentService.deleteStudent(action.id).pipe(
+          map((data) => {
+            return deleteStudentSuccess({ id: action.id });
           })
         );
       })
