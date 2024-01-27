@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { StudentState, initialState, studentAdapter } from './student.state';
-import { addStudent, addStudentSuccess, deleteStudent, loadStudentsSuccess, updateStudent } from './student.action';
+import {addStudentSuccess, deleteStudent, loadStudentsSuccess, updateStudent, updateStudentSuccess } from './student.action';
 
 const _studentsReducer = createReducer(
   initialState,
@@ -12,7 +12,7 @@ const _studentsReducer = createReducer(
     //   students: [...state.students, student],
     // };
   }),
-  on(updateStudent, (state, action) => {
+  on(updateStudentSuccess, (state, action) => {
     return studentAdapter.updateOne(action.student, state);
     // const updatedStudent = state.students.map((student) => {
     //   return action.student.id === student.id ? action.student : student;

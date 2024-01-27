@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { mergeMap, map, of, filter, switchMap } from "rxjs";
-import { addStudent, addStudentSuccess, deleteStudent, loadStudents, loadStudentsSuccess, updateStudent } from "./student.action";
+import { addStudent, addStudentSuccess, deleteStudent, deleteStudentSuccess, loadStudents, loadStudentsSuccess, updateStudent, updateStudentSuccess } from "./student.action";
 import { StudentService } from "../service/student.service";
 import { ROUTER_NAVIGATION, RouterNavigatedAction } from "@ngrx/router-store";
 import { Update } from "@ngrx/entity";
@@ -47,7 +47,7 @@ export class StudentEffects {
               id: action.student.id,
               changes: {
                 ...action.student,
-              },
+              }
             };
             return updateStudentSuccess({ student: updatedStudent });
           })

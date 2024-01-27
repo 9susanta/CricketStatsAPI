@@ -1,9 +1,14 @@
+import { Update } from '@ngrx/entity';
+import { UpdateNum } from '@ngrx/entity/src/models';
 import { createAction, props } from '@ngrx/store';
 import { Student } from 'src/app/models/student.model';
 
 export const ADD_STUDENT_ACTION = '[students page] add student';
 export const UPDATE_STUDENT_ACTION = '[students page] update student';
 export const DELETE_STUDENT_ACTION = '[students page] delete student';
+
+export const UPDATE_STUDENT_SUCCESS = '[student page] update student success';
+export const DELETE_STUDENT_SUCCESS = '[student page] delete student success';
 
 export const addStudent = createAction(
   ADD_STUDENT_ACTION,
@@ -15,8 +20,18 @@ export const updateStudent = createAction(
   props<{ student: Student }>()
 );
 
+export const updateStudentSuccess = createAction(
+  UPDATE_STUDENT_SUCCESS,
+  props<{ student: Update<Student> }>()
+);
+
 export const deleteStudent = createAction(
   DELETE_STUDENT_ACTION,
+  props<{ id: number }>()
+);
+
+export const deleteStudentSuccess = createAction(
+  DELETE_STUDENT_SUCCESS,
   props<{ id: number }>()
 );
 
