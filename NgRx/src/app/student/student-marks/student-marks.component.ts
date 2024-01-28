@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { getStudent } from '../state/student.selector';
+import { getCount, getStudent } from '../state/student.selector';
 import { deleteStudent, loadStudents } from '../state/student.action';
 
 @Component({
@@ -11,6 +11,8 @@ import { deleteStudent, loadStudents } from '../state/student.action';
 })
 export class StudentMarksComponent {
   students$ = this.store.select(getStudent);
+  count$ = this.store.select(getCount);
+  
   constructor(private store: Store<AppState>) {}
   onDelete(id: number) {
     if (confirm('Are you sure you want to delete')) {

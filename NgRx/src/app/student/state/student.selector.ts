@@ -1,20 +1,22 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { StudentState } from './student.state';
+import { StudentState, studentAdapter } from './student.state';
 import { RouterStateUrl } from 'src/app/store/router/custom-serializer';
 import { getCurrentRoute } from 'src/app/store/router/router.selector';
 
 export const STUDENT_STATE_NAME = 'students';
 
 const getStudentState = createFeatureSelector<StudentState>(STUDENT_STATE_NAME);
+export const studentSelectors = studentAdapter.getSelectors();
 
-export const getStudent = createSelector(getStudentState, (state) => {
-  return state.students;
-});
+export const getStudent = createSelector(getStudentState, studentSelectors.selectAll);
+export const getStudentEntities = createSelector(getStudentState,studentSelectors.selectEntities);
 
   export const getStudentById = createSelector(
-    getStudent,
+    getStudentEntities,
     getCurrentRoute,
     (student, route: RouterStateUrl) => {
-      return student ? student.find((student) => student.id === route.params['id']) : null;
+      return student ? student[route.params['id']] : null;
     }
   );
+
+  export const getCount = createSelector(getStudentState, (state) => state.count);

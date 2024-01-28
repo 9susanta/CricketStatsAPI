@@ -34,7 +34,7 @@ export class StudentService {
     );
   }
 
-  deletePost(id: number) {
+  deleteStudent(id: number) {
     return this.http.delete(this.apiBaseUrl+"Student/DeleteStudent/"+id);
   }
 
