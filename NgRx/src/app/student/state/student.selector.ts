@@ -18,3 +18,5 @@ export const getStudentEntities = createSelector(getStudentState,studentSelector
       return student ? student[route.params['id']] : null;
     }
   );
+
+  export const getCount = createSelector(getStudentState, (state) => state.count);

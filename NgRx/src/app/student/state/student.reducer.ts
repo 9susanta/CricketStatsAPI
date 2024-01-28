@@ -5,7 +5,7 @@ import {addStudentSuccess, deleteStudentSuccess, loadStudentsSuccess, updateStud
 const _studentsReducer = createReducer(
   initialState,
   on(addStudentSuccess, (state, action) => {
-    return studentAdapter.addOne(action.student, state);
+    return studentAdapter.addOne(action.student,{...state,count:state.count+1});
     // let student = { ...action.student };
     // return {
     //   ...state,
@@ -34,7 +34,7 @@ const _studentsReducer = createReducer(
     // };
   }),
   on(loadStudentsSuccess, (state, action) => {
-    return studentAdapter.setAll(action.students, state);
+    return studentAdapter.setAll(action.students, {...state,count:state.count+1});
     // return {
     //   ...state,
     //   students: action.students,
